@@ -1,0 +1,6 @@
+name: Axelerant custom module
+type: module
+description: 'Custom module to customize site information page'
+package: Custom
+version: 8.x
+core: 8.x

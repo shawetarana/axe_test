@@ -1,0 +1,7 @@
+page_json.content:
+  path: '/page_json/FOOBAR12345/{id}'
+  defaults:
+    _controller: 'Drupal\axe_test\Controller\ApiController::content'
+    _title: 'Json representation'
+  requirements:
+    _permission: 'access content'

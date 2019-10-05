@@ -1,0 +1,32 @@
+<?php
+/*
+ * Custom module to alter site-information page
+ */
+function axe_test_form_alter(&$form, &$form_state, $form_id)
+{
+    $data = \Drupal::state()->get('siteapikey');
+    if ($data == '') {
+        $default_api_value = 'No API Key yet';
+    } else {
+        $default_api_value = \Drupal::state()->get('siteapikey');
+    }
+    if ($form_id == 'system_site_information_settings') {
+        $form['form_extra_setting'] = array(
+            '#type' => 'textfield',
+            '#title' => t('Site API Key'),
+            '#default_value' => $default_api_value,
+        );
+        $form['actions']['submit']['#value'] = t('Update Configuration');
+        $form['#submit'][] = 'site_api_handler';
+    }
+
+}
+
+/*
+ * Submit handler to save the api
+ */
+function site_api_handler(&$form, &$form_state)
+{
+    \Drupal::state()->set('siteapikey', $form_state->getValue('form_extra_setting'));
+    Drupal::messenger()->addMessage(t('Site API Key has been saved.'), 'status');
+}
